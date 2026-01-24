@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;in.ashokit.dto.PaymentCall&apos; to &apos;PaymentCallBackDto&apos;&#x0D;&#x0A;- Original project: &apos;04-Notification-Api&apos;&#x0D;&#x0A;- Original element: &apos;in.ashokit.dto.PaymentCall&apos;&#x0D;&#x0A;- Renamed element: &apos;in.ashokit.dto.PaymentCallBackDto&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;PaymentCall&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;in.ashokit.dto{PaymentCall.java[PaymentCall" matchStrategy="1" name="PaymentCallBackDto" qualified="false" references="true" similarDeclarations="false" stamp="1768373707510" textual="false" version="1.0"/>
+</session>

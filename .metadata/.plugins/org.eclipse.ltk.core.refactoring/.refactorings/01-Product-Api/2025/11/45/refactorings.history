@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;in.Ashokit.entity.CategoryEnity.java&apos; to &apos;CategoryEntity.java&apos;&#x0D;&#x0A;- Original project: &apos;Product_Api&apos;&#x0D;&#x0A;- Original element: &apos;in.Ashokit.entity.CategoryEnity.java&apos;&#x0D;&#x0A;- Renamed element: &apos;in.Ashokit.entity.CategoryEntity.java&apos;" description="Rename compilation unit &apos;CategoryEnity.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;in.Ashokit.entity{CategoryEnity.java" name="CategoryEntity.java" references="false" stamp="1762234916339" version="1.0"/>
+</session>

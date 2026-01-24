@@ -1,0 +1,14 @@
+E:\Full-stack\E_commerce\01-Product-Api\src\main\java\in\Ashokit\config\CorsConfig.java
+E:\Full-stack\E_commerce\01-Product-Api\src\main\java\in\Ashokit\controller\ProductController.java
+E:\Full-stack\E_commerce\01-Product-Api\src\main\java\in\Ashokit\dto\CatogoryDto.java
+E:\Full-stack\E_commerce\01-Product-Api\src\main\java\in\Ashokit\dto\ProductDto.java
+E:\Full-stack\E_commerce\01-Product-Api\src\main\java\in\Ashokit\entity\CategoryEntity.java
+E:\Full-stack\E_commerce\01-Product-Api\src\main\java\in\Ashokit\entity\Product_Entity.java
+E:\Full-stack\E_commerce\01-Product-Api\src\main\java\in\Ashokit\mapper\CategoryMapper.java
+E:\Full-stack\E_commerce\01-Product-Api\src\main\java\in\Ashokit\mapper\ProductMapper.java
+E:\Full-stack\E_commerce\01-Product-Api\src\main\java\in\Ashokit\ProductApiApplication.java
+E:\Full-stack\E_commerce\01-Product-Api\src\main\java\in\Ashokit\repo\CategoryRepo.java
+E:\Full-stack\E_commerce\01-Product-Api\src\main\java\in\Ashokit\repo\ProductRepo.java
+E:\Full-stack\E_commerce\01-Product-Api\src\main\java\in\Ashokit\Response\ApiResponse.java
+E:\Full-stack\E_commerce\01-Product-Api\src\main\java\in\Ashokit\service\ProductService.java
+E:\Full-stack\E_commerce\01-Product-Api\src\main\java\in\Ashokit\service\ProductServiceImpl.java

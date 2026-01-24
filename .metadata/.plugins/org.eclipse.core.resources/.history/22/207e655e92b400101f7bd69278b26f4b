@@ -1,0 +1,19 @@
+package in.Ashokit.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+
+import in.Ashokit.service.ProductServiceImpl;
+
+@RestController
+public class ProductController
+{
+	@Autowired
+	private ProductService productService;
+	@GetMapping(value ="")
+	public getAllCategory()
+	{
+		 List<Cate> allCategories = productService.findAllCategories();
+	}
+
+}

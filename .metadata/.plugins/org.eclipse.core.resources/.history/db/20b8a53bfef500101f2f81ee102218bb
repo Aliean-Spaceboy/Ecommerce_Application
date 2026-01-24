@@ -1,0 +1,18 @@
+spring.application.name=Order_Api
+
+server.port = 9090
+
+spring.main.allow-circular-references=true
+spring.datasource.url=jdbc:mysql://localhost:3306/ecommerce
+spring.datasource.username=root
+spring.datasource.password=root
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+
+
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=kanhajena45@gmail.com
+spring.mail.password=mhlj uucf wzgq dkre
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true

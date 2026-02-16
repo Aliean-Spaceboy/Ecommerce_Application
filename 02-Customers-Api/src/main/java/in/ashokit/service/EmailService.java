@@ -1,5 +1,4 @@
-package com.ecomm.customer.service;
-
+package in.ashokit.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;

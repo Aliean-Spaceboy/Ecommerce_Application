@@ -1,9 +1,9 @@
-package com.ecomm.customer.mapper;
+package in.ashokit.mapper;
 
 import org.modelmapper.ModelMapper;
 
-import com.ecomm.customer.dto.CustomerDto;
-import com.ecomm.customer.entities.CustomerEntity;
+import in.ashokit.dto.CustomerDto;
+import in.ashokit.entities.CustomerEntity;
 
 public class CustomerMapper {
 

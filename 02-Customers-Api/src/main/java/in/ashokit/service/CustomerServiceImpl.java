@@ -1,7 +1,6 @@
-package com.ecomm.customer.service;
+package in.ashokit.service;
 
 import java.time.LocalDateTime;
-
 import java.util.Random;
 import java.util.UUID;
 
@@ -12,12 +11,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.ecomm.customer.dto.CustomerDto;
-import com.ecomm.customer.dto.ResetPwdDto;
-import com.ecomm.customer.entities.CustomerEntity;
-import com.ecomm.customer.mapper.CustomerMapper;
-import com.ecomm.customer.repository.CustomerRepository;
-import com.ecomm.customer.response.AuthResponse;
+import in.ashokit.dto.CustomerDto;
+import in.ashokit.dto.ResetPwdDto;
+import in.ashokit.entities.CustomerEntity;
+import in.ashokit.mapper.CustomerMapper;
+import in.ashokit.repository.CustomerRepository;
+import in.ashokit.response.AuthResponse;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {

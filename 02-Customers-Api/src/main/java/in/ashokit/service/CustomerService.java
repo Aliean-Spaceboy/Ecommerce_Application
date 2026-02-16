@@ -1,8 +1,10 @@
-package com.ecomm.customer.service;
+package in.ashokit.service;
 
-import com.ecomm.customer.dto.CustomerDto;
-import com.ecomm.customer.dto.ResetPwdDto;
-import com.ecomm.customer.response.AuthResponse;
+
+
+import in.ashokit.dto.CustomerDto;
+import in.ashokit.dto.ResetPwdDto;
+import in.ashokit.response.AuthResponse;
 
 public interface CustomerService {
 

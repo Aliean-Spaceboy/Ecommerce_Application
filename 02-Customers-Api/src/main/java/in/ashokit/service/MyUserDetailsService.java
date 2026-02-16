@@ -1,4 +1,4 @@
-package com.ecomm.customer.service;
+package in.ashokit.service;
 
 import java.util.Collections;
 
@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.ecomm.customer.entities.CustomerEntity;
-import com.ecomm.customer.repository.CustomerRepository;
+import in.ashokit.entities.CustomerEntity;
+import in.ashokit.repository.CustomerRepository;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {

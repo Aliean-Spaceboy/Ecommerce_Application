@@ -1,4 +1,4 @@
-package com.ecomm.customer.rest;
+package in.ashokit.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecomm.customer.dto.CustomerDto;
-import com.ecomm.customer.dto.ResetPwdDto;
-import com.ecomm.customer.response.ApiResponse;
-import com.ecomm.customer.response.AuthResponse;
-import com.ecomm.customer.service.CustomerService;
+import in.ashokit.dto.CustomerDto;
+import in.ashokit.dto.ResetPwdDto;
+import in.ashokit.response.ApiResponse;
+import in.ashokit.response.AuthResponse;
+import in.ashokit.service.CustomerService;
 
 @RestController
 public class CustomerRestController {

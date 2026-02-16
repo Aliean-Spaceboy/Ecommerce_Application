@@ -1,4 +1,4 @@
-package com.ecomm.customer.dto;
+package in.ashokit.dto;
 
 import lombok.Data;
 

@@ -1,5 +1,4 @@
-package com.ecomm.customer.config;
-
+package in.ashokit.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,8 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.ecomm.customer.service.MyUserDetailsService;
-
+import in.ashokit.service.MyUserDetailsService;
 import lombok.SneakyThrows;
 
 @Configuration

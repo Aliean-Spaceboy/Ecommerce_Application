@@ -1,4 +1,4 @@
-package com.ecomm.customer.response;
+package in.ashokit.response;
 
 import lombok.Data;
 

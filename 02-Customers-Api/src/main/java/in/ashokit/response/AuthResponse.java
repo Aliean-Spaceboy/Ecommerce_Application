@@ -1,7 +1,9 @@
-package com.ecomm.customer.response;
+package in.ashokit.response;
 
-import com.ecomm.customer.dto.CustomerDto;
 
+
+
+import in.ashokit.dto.CustomerDto;
 import lombok.Data;
 
 @Data

@@ -1,4 +1,4 @@
-package com.ecomm.customer.entities;
+package in.ashokit.entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

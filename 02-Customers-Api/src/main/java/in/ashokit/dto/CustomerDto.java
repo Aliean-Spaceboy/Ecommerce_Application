@@ -1,5 +1,4 @@
-package com.ecomm.customer.dto;
-
+package in.ashokit.dto;
 import java.time.LocalDate;
 
 import lombok.Data;

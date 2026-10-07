@@ -44,7 +44,7 @@ public class GatewayRoutingIntegrationTest {
         registry.add("CUSTOMER_API_URL", () -> wiremockUrl);
         registry.add("PRODUCT_API_URL", () -> wiremockUrl);
         registry.add("ORDER_API_URL", () -> wiremockUrl);
-        registry.add("JWT_SECRET", () -> "bXl0ZXN0c2VjcmV0a2V5dGhhdGlzdmVyeXZlcnlsb25n");
+        registry.add("jwt.secret", () -> "bXl0ZXN0c2VjcmV0a2V5dGhhdGlzdmVyeXZlcnlsb25n");
     }
 
     private String generateValidToken() {
@@ -161,5 +161,19 @@ public class GatewayRoutingIntegrationTest {
                 .expectStatus().isOk();
 
         verify(getRequestedFor(urlEqualTo("/orders/test@test.com/TRACK123")));
+    }
+
+    @Test
+    void testGw08_CorsOptions() {
+        // Test that OPTIONS request for CORS preflight gets handled by Gateway globalcors
+        // and returns 200 OK with appropriate headers, even without hitting backend or auth filter.
+        webClient.options().uri("/api/orders")
+                .header("Origin", "http://localhost:5173")
+                .header("Access-Control-Request-Method", "POST")
+                .exchange()
+                .expectStatus().isOk()
+                .expectHeader().valueEquals("Access-Control-Allow-Origin", "http://localhost:5173")
+                .expectHeader().valueEquals("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
+                .expectHeader().valueEquals("Access-Control-Allow-Credentials", "true");
     }
 }

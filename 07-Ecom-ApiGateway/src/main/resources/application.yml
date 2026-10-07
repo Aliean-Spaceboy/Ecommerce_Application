@@ -9,7 +9,8 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "${CORS_ALLOWED_ORIGIN:http://localhost:5173}"
+            allowedOrigins:
+              - "http://localhost:5173"
             allowedMethods:
               - GET
               - POST
@@ -69,6 +70,7 @@ spring:
           uri: ${ORDER_API_URL:http://localhost:9092}
           predicates:
             - Path=/api/orders
+            - Method=POST,OPTIONS
           filters:
             - AuthenticationFilter
             - RewritePath=/api/orders, /order
@@ -78,7 +80,7 @@ spring:
           uri: ${ORDER_API_URL:http://localhost:9092}
           predicates:
             - Path=/api/orders/{email}/{trackingNum}
-            - Method=GET
+            - Method=GET,OPTIONS
           filters:
             - AuthenticationFilter
             - StripPrefix=1

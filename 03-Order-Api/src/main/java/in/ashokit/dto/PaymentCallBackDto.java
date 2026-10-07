@@ -8,7 +8,7 @@ public class PaymentCallBackDto {
 	
 	private String razorPayOrderId;
 	private String razorPayPaymentId;
-	private String razorPaymentSignature;
+	private String razorPaySignature;
 
 
 }

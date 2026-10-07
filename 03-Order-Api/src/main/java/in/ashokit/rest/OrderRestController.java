@@ -17,7 +17,7 @@ import in.ashokit.request.PurcheseOrderRequest;
 import in.ashokit.response.ApiResponse;
 import in.ashokit.response.PurchaseOrderResponse;
 import in.ashokit.service.OrderService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 public class OrderRestController {
@@ -45,7 +45,7 @@ public class OrderRestController {
 	}
 
 	@PutMapping("/order")
-	public ResponseEntity<ApiResponse<PurchaseOrderResponse>> updateOrder(PaymentCallBackDto paymentCallBackDto) {
+	public ResponseEntity<ApiResponse<PurchaseOrderResponse>> updateOrder(@RequestBody PaymentCallBackDto paymentCallBackDto) {
 		ApiResponse<PurchaseOrderResponse> response = new ApiResponse<>();
 
 		PurchaseOrderResponse ordrResp = orderService.updateOrder(paymentCallBackDto);
@@ -63,22 +63,22 @@ public class OrderRestController {
 		}
 	}
 
-	@GetMapping("/orders{Email}")
-	public ResponseEntity<ApiResponse<List<OrderDto>>> getOrders(@PathVariable String email) {
-		ApiResponse<List<OrderDto>> response = new ApiResponse<>();
+	@GetMapping("/orders/{email}/{trackingNum}")
+	public ResponseEntity<ApiResponse<OrderDto>> trackOrder(@PathVariable String email, @PathVariable String trackingNum) {
+		ApiResponse<OrderDto> response = new ApiResponse<>();
 
-		List<OrderDto> ordrresp = orderService.findbyEmail(email);
+		OrderDto ordrresp = orderService.trackOrder(email, trackingNum);
 
-		if (!ordrresp.isEmpty()) {
+		if (ordrresp != null) {
 			response.setStatus(200);
-			response.setMessage("Orders Fetch SucessFull");
+			response.setMessage("Order Fetch SuccessFull");
 			response.setData(ordrresp);
-			return new ResponseEntity<ApiResponse<List<OrderDto>>>(response, HttpStatus.OK);
+			return new ResponseEntity<ApiResponse<OrderDto>>(response, HttpStatus.OK);
 		} else {
-			response.setStatus(500);
-			response.setMessage("Email Not Found!");
+			response.setStatus(404);
+			response.setMessage("Invalid Email or Tracking Number!");
 			response.setData(null);
-			return new ResponseEntity<ApiResponse<List<OrderDto>>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<ApiResponse<OrderDto>>(response, HttpStatus.NOT_FOUND);
 		}
 	}
 

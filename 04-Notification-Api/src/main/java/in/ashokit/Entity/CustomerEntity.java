@@ -23,7 +23,7 @@ public class CustomerEntity {
 	private Integer customerId;
 	private String customerName;
 	private Long customerPhno;
-	private String Email;
+	private String email;
 	private String password;
 	private String updatedPassword;
 

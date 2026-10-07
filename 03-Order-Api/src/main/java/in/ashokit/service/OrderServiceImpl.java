@@ -43,6 +43,7 @@ public class OrderServiceImpl implements OrderService {
 	private RazorpayService razorpayService;
 
 	@Override
+	@org.springframework.transaction.annotation.Transactional(rollbackFor = Exception.class)
 	public PurchaseOrderResponse createOrder(PurcheseOrderRequest purcheseOrderRequest) {
 
 		AddressDto addressDto = purcheseOrderRequest.getAddressDto();
@@ -113,10 +114,22 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	@org.springframework.transaction.annotation.Transactional(rollbackFor = Exception.class)
 	public PurchaseOrderResponse updateOrder(PaymentCallBackDto paymentCallBackDto) {
 
 		OrderEntity order = orderRepo.findByRazorPayOrderId(paymentCallBackDto.getRazorPayOrderId());
 		if (order != null) {
+			boolean isSignatureValid = razorpayService.verifyPaymentSignature(
+				paymentCallBackDto.getRazorPayOrderId(),
+				paymentCallBackDto.getRazorPayPaymentId(),
+				paymentCallBackDto.getRazorPaySignature()
+			);
+
+			if (!isSignatureValid) {
+				order.setOrderStatus("FAILED");
+				orderRepo.save(order);
+				throw new IllegalArgumentException("Invalid Razorpay payment signature");
+			}
 
 			order.setOrderStatus("CONFIRMED");
 			order.setDeliveryDate(LocalDate.now().plusDays(4));
@@ -161,6 +174,16 @@ public class OrderServiceImpl implements OrderService {
 			dtoList.add(orderDto);
 		}
 		return dtoList;
+	}
+	@Override
+	public OrderDto trackOrder(String email, String trackingNum) {
+		OrderEntity order = orderRepo.findByEmailAndOrderTrackingNum(email, trackingNum);
+		if (order != null) {
+			OrderDto orderDto = new OrderDto();
+			BeanUtils.copyProperties(order, orderDto);
+			return orderDto;
+		}
+		return null;
 	}
 
 }

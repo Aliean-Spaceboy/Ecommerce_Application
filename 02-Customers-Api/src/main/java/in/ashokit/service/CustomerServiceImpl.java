@@ -29,6 +29,8 @@ public class CustomerServiceImpl implements CustomerService {
 	private EmailService emailService;
 	@Autowired
 	private AuthenticationManager authManager;
+	@Autowired
+	private in.ashokit.util.JwtUtil jwtUtil;
 
 //========================Checking for unique email given by customer===========================================
 	@Override
@@ -43,8 +45,10 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public Boolean register(CustomerDto customerDto) {
 
-		// getting random pwd and encoding it
-		String originalPwd = generateRandomPassword();
+		// Use provided password or generate one
+		String originalPwd = (customerDto.getPassword() != null && !customerDto.getPassword().isEmpty()) 
+				? customerDto.getPassword() 
+				: generateRandomPassword();
 		String encodedPwd = pwdEncoder.encode(originalPwd);
 
 		// setting pwd and updatedPwd as NO
@@ -106,7 +110,8 @@ public class CustomerServiceImpl implements CustomerService {
 							""",
 					customerDto.getName(), originalPwd);
 
-			return emailService.sendEmail(customerDto.getEmail(), subject, body);
+			emailService.sendEmail(customerDto.getEmail(), subject, body);
+			return true;
 		}
 
 		return false;
@@ -150,14 +155,19 @@ public class CustomerServiceImpl implements CustomerService {
 		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(customerDto.getEmail(),
 				customerDto.getPassword());
 
-		Authentication authenticate = authManager.authenticate(authToken);
+		try {
+			Authentication authenticate = authManager.authenticate(authToken);
 
-		if (authenticate.isAuthenticated()) {
-			authResponse = new AuthResponse();
-			CustomerEntity customerEntity = customerRepo.findByEmail(customerDto.getEmail());
-			authResponse.setCustomer(CustomerMapper.convertToDto(customerEntity));
-			authResponse.setToken("");
-
+			if (authenticate.isAuthenticated()) {
+				authResponse = new AuthResponse();
+				CustomerEntity customerEntity = customerRepo.findByEmail(customerDto.getEmail());
+				authResponse.setCustomer(CustomerMapper.convertToDto(customerEntity));
+				String token = jwtUtil.generateToken(customerDto.getEmail());
+				authResponse.setToken(token);
+			}
+		} catch (org.springframework.security.core.AuthenticationException e) {
+			// Return null so the controller can handle it and return 400 Bad Request
+			return null;
 		}
 		return authResponse;
 	}

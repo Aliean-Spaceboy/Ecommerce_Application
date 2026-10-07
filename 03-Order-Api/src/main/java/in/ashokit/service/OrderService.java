@@ -15,4 +15,5 @@ public interface OrderService
 	public PurchaseOrderResponse createOrder(PurcheseOrderRequest purcheseOrderRequest);
 	public PurchaseOrderResponse updateOrder(PaymentCallBackDto paymentCallBackDto);
 	public List<OrderDto> findbyEmail(String email);
+	public OrderDto trackOrder(String email, String trackingNum);
 }

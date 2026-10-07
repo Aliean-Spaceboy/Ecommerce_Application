@@ -26,6 +26,15 @@ const removeFromCart = (productId) => {
   saveCartItems(cart);
 };
 
+const updateQuantity = (productId, newQuantity) => {
+  const cart = getCartItems();
+  const item = cart.find((item) => item.id === productId);
+  if (item) {
+    item.quantity = newQuantity;
+    saveCartItems(cart);
+  }
+};
+
 const clearCart = () => {
   localStorage.removeItem(CART_KEY);
 };
@@ -34,5 +43,6 @@ export default {
   getCartItems,
   addToCart,
   removeFromCart,
+  updateQuantity,
   clearCart,
 };

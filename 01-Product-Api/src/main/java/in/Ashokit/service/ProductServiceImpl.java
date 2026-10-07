@@ -28,6 +28,10 @@ public class ProductServiceImpl implements ProductService {
 
 	}
 
+	@Override
+	public List<ProductDto> findAllProducts() {
+		return productRepo.findAll().stream().map(ProductMapper::convertToDto).collect(Collectors.toList());
+	}
 	// productbased on category id
 	@Override
 	public List<ProductDto> findProductsByCategory(Integer categoryId) {

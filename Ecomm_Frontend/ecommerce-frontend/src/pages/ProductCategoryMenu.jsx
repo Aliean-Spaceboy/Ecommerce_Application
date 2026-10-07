@@ -7,7 +7,12 @@ export default function ProductCategoryMenu() {
 
   useEffect(() => {
     productService.getCategories().then((res) => {
-      setCategories(res.data);
+      let data = res?.data?.data || res?.data || [];
+      if (!Array.isArray(data)) data = [];
+      setCategories(data);
+    }).catch(err => {
+      console.error(err);
+      setCategories([]);
     });
   }, []);
 

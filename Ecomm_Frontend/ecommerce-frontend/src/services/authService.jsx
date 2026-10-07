@@ -20,10 +20,21 @@ const getToken = () => {
   return localStorage.getItem("token");
 };
 
+const saveCustomer = (customer) => {
+  localStorage.setItem("customer", JSON.stringify(customer));
+};
+
+const getCustomer = () => {
+  const cust = localStorage.getItem("customer");
+  return cust ? JSON.parse(cust) : null;
+};
+
 export default {
   login,
   register,
   logout,
   saveToken,
   getToken,
+  saveCustomer,
+  getCustomer,
 };

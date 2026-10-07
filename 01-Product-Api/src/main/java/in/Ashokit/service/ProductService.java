@@ -12,6 +12,8 @@ public interface ProductService {
 	// togetallcategory
 	public List<CatogoryDto> findAllCategory();
 
+	public List<ProductDto> findAllProducts();
+
 	// productbased on category id
 	public List<ProductDto> findProductsByCategory(Integer categoryId);
 

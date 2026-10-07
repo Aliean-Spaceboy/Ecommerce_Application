@@ -11,4 +11,6 @@ public interface OrderRepo extends JpaRepository<OrderEntity, Integer>
     public OrderEntity findByRazorPayOrderId(String razorPayOrderId);
     
     public List<OrderEntity> findByEmail(String email);
+    
+    public OrderEntity findByEmailAndOrderTrackingNum(String email, String orderTrackingNum);
 }

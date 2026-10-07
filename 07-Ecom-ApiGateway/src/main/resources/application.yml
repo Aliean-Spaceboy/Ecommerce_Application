@@ -1,0 +1,86 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: ecom-apigateway
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "${CORS_ALLOWED_ORIGIN:http://localhost:5173}"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
+      routes:
+        # Customer Routes
+        - id: customer-route
+          uri: ${CUSTOMER_API_URL:http://localhost:9091}
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - AuthenticationFilter
+            - StripPrefix=2
+
+        # Product Routes - Categories
+        - id: product-categories-route
+          uri: ${PRODUCT_API_URL:http://localhost:9090}
+          predicates:
+            - Path=/api/product-categories
+          filters:
+            - AuthenticationFilter
+            - RewritePath=/api/product-categories, /category
+
+        # Product Routes - All Products
+        - id: all-products-route
+          uri: ${PRODUCT_API_URL:http://localhost:9090}
+          predicates:
+            - Path=/api/products
+          filters:
+            - AuthenticationFilter
+            - RewritePath=/api/products, /products
+
+        # Product Routes - Products by Category
+        - id: products-by-category-route
+          uri: ${PRODUCT_API_URL:http://localhost:9090}
+          predicates:
+            - Path=/api/products/category/{categoryId}
+          filters:
+            - AuthenticationFilter
+            - RewritePath=/api/products/category/(?<categoryId>.*), /products/${categoryId}
+
+        # Product Routes - Product Details
+        - id: product-details-route
+          uri: ${PRODUCT_API_URL:http://localhost:9090}
+          predicates:
+            - Path=/api/products/{id}
+          filters:
+            - AuthenticationFilter
+            - RewritePath=/api/products/(?<id>.*), /product/id/${id}
+
+        # Order Routes - Create Order (POST)
+        - id: order-create-route
+          uri: ${ORDER_API_URL:http://localhost:9092}
+          predicates:
+            - Path=/api/orders
+          filters:
+            - AuthenticationFilter
+            - RewritePath=/api/orders, /order
+
+        # Order Routes - Chatbot Track Order (GET)
+        - id: chatbot-track-order-route
+          uri: ${ORDER_API_URL:http://localhost:9092}
+          predicates:
+            - Path=/api/orders/{email}/{trackingNum}
+            - Method=GET
+          filters:
+            - AuthenticationFilter
+            - StripPrefix=1
+jwt:
+  secret: ${JWT_SECRET}

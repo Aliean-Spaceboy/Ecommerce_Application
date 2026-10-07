@@ -43,11 +43,15 @@ public class AppSecurityConfig {
 	@Bean
 	@SneakyThrows
 	public SecurityFilterChain security(HttpSecurity http) {
-		http.authorizeHttpRequests(req -> {
-			req.requestMatchers("/register", "/login", "/reset-pwd", "/reset-password-via-link","/forget-pwd/**").permitAll().anyRequest()
-					.authenticated();
-		});
-		return http.csrf().disable().build();
+		http.csrf(csrf -> csrf.disable())
+		    .cors(cors -> cors.disable())
+		    .formLogin(form -> form.disable())
+		    .httpBasic(basic -> basic.disable())
+		    .authorizeHttpRequests(req -> {
+			    req.requestMatchers("/register", "/login", "/reset-pwd", "/reset-password-via-link","/forget-pwd/**").permitAll()
+			       .anyRequest().authenticated();
+		    });
+		return http.build();
 	}
 	
 }

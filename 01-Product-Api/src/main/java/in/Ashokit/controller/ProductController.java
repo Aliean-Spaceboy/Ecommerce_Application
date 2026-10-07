@@ -31,14 +31,33 @@ public class ProductController {
 			response.setData(allCategories);
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		} else {
-			response.setStatus(500);
+			response.setStatus(404);
 			response.setMessage("the data not fetched");
 			response.setData(null);
-			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	@GetMapping(value = "/products", produces = "application/json")
+	public ResponseEntity<ApiResponse<List<ProductDto>>> getAllProducts() {
+		List<ProductDto> products = productService.findAllProducts();
+		ApiResponse<List<ProductDto>> response = new ApiResponse<>();
+
+		if (!products.isEmpty()) {
+			response.setStatus(200);
+			response.setMessage("Products Found");
+			response.setData(products);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} else {
+			response.setStatus(200);
+			response.setMessage("No Products Found");
+			response.setData(Collections.emptyList());
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+	}
+
      @GetMapping("/products/{categoryId}")
-	public ResponseEntity<ApiResponse<List<ProductDto>>> getProductsByCategoryId(Integer categoryId) {
+	public ResponseEntity<ApiResponse<List<ProductDto>>> getProductsByCategoryId(@PathVariable Integer categoryId) {
 		List<ProductDto> product = productService.findProductsByCategory(categoryId);
 		ApiResponse<List<ProductDto>> response = new ApiResponse<>();
 
@@ -71,10 +90,10 @@ public class ProductController {
 			
 			else
 			{
-				response.setStatus(500);
+				response.setStatus(404);
 				response.setMessage("Product Not Found.");
 				response.setData(null);
-				return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
 			}
 			
 		}
@@ -93,10 +112,10 @@ public class ProductController {
 			 }
 			 else
 			 {
-				 response.setStatus(500);
+				 response.setStatus(404);
 				 response.setMessage("Product Not Found!");
 				 response.setData(null);
-				 return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+				 return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 			 }
 		}
 		

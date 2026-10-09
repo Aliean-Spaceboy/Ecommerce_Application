@@ -143,12 +143,33 @@ public class GatewayRoutingIntegrationTest {
                 .exchange()
                 .expectStatus().isOk();
 
-        verify(postRequestedFor(urlEqualTo("/order")));
+        verify(postRequestedFor(urlEqualTo("/order"))
+                .withHeader("X-User-Email", equalTo("test@test.com")));
         
         // Method restriction test: GET to /api/orders should be 404 from Gateway (no route matches)
         webClient.get().uri("/api/orders")
                 .exchange()
                 .expectStatus().isNotFound();
+    }
+
+    @Test
+    void testGw06b_UpdateOrder_Secured() {
+        stubFor(put(urlEqualTo("/order"))
+                .willReturn(aResponse().withStatus(200)));
+
+        // Unauthenticated -> 401
+        webClient.put().uri("/api/orders")
+                .exchange()
+                .expectStatus().isUnauthorized();
+
+        // Authenticated -> 200
+        webClient.put().uri("/api/orders")
+                .header("Authorization", generateValidToken())
+                .exchange()
+                .expectStatus().isOk();
+
+        verify(putRequestedFor(urlEqualTo("/order"))
+                .withHeader("X-User-Email", equalTo("test@test.com")));
     }
 
     @Test

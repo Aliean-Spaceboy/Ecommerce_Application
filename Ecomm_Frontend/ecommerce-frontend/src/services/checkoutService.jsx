@@ -5,7 +5,6 @@ const placeOrder = (orderData) => {
   const payload = {
     ...orderData,
     orderItemDto: orderData.orderItemDto.map(item => ({
-      orderid: item.productId,
       quentity: item.quantity,
       unitPrice: item.unitPrice || (item.totalPrice / item.quantity),
       orderName: item.productName || "Product",

@@ -1,10 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import checkoutService from "../services/checkoutService";
 import cartService from "../services/cartService";
 import authService from "../services/authService";
 import { useNavigate, Link } from "react-router-dom";
 import { ChevronLeft, Lock, CreditCard, ShieldCheck } from "lucide-react";
-import { motion } from "framer-motion";
+
 import { FormField } from "../components/ui/FormField";
 import { Button } from "../components/ui/Button";
 
@@ -76,7 +77,7 @@ export default function Checkout() {
       orderItemDto: cartItems.map(item => ({
         ...item,
         productId: item.id,
-        quantity: item.quantity,
+        quentity: item.quantity,
         totalPrice: item.unitPrice * item.quantity
       }))
     };
@@ -98,6 +99,7 @@ export default function Checkout() {
               razorPaySignature: response.razorpay_signature
             }).then(updateRes => {
               cartService.clearCart();
+              localStorage.setItem("recentOrderTrackingNum", updateRes.data.data.orderTrackingNum);
               navigate("/order-confirmation", { state: { trackingNumber: updateRes.data.data.orderTrackingNum } });
             }).catch(err => {
               console.error(err);

@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function CartDetails() {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems] = useState(() => JSON.parse(localStorage.getItem("cartItems")) || []);
 
-  useEffect(() => {
-    const items = JSON.parse(localStorage.getItem("cartItems")) || [];
-    setCartItems(items);
-  }, []);
 
   return (
     <div className="main-content">

@@ -1,0 +1,4 @@
+in\Ashokit\ProductApiApplicationIntegrationTest.class
+in\Ashokit\repo\ProductRepoIntegrationTest.class
+in\Ashokit\controller\ProductControllerTest.class
+in\Ashokit\service\ProductServiceImplTest.class

@@ -1,9 +1,11 @@
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+
 import { ChevronLeft, Minus, Plus, ShoppingBag, Shield, ArrowRight } from "lucide-react";
 import productService from "../services/productService";
 import cartService from "../services/cartService";
+import { toast } from "sonner";
 
 import { ImageFallback } from "../components/ui/ImageFallback";
 
@@ -17,8 +19,10 @@ export default function ProductDetails() {
   const [isAdding, setIsAdding] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
-    setQuantity(1); // Reset quantity when ID changes
+    Promise.resolve().then(() => {
+      setIsLoading(true);
+      setQuantity(1);
+    });
     
     productService.getProductById(id).then((res) => {
       const pData = res?.data?.data || res?.data;
@@ -52,16 +56,17 @@ export default function ProductDetails() {
     if (!product) return;
     setIsAdding(true);
     
-    // Allow adding multiple by iterating (since cartService.addToCart currently adds 1 at a time if it lacks quantity param)
-    // Actually cartService.addToCart in most implementations finds the item and increments by 1.
-    // Let's assume we can loop it or cartService handles it.
-    for(let i=0; i<quantity; i++){
-      cartService.addToCart(product);
+    try {
+      for(let i=0; i<quantity; i++){
+        cartService.addToCart(product);
+      }
+      toast.success(`${product.productName || 'Product'} added to cart`);
+    } catch {
+      toast.error("Unable to add product to cart. Please try again.");
     }
     
     setTimeout(() => {
       setIsAdding(false);
-      // Optional: show a mini-cart slider or toast here
     }, 500);
   };
 
@@ -178,7 +183,7 @@ export default function ProductDetails() {
                 <button 
                   onClick={handleAddToCart}
                   disabled={isAdding}
-                  className="flex-1 bg-primary text-on-primary h-14 rounded-full font-medium flex items-center justify-center gap-2 hover:bg-primary/90 transition-all focus:ring-2 focus:ring-accent focus:outline-none"
+                  className="flex-1 bg-accent text-on-accent h-14 rounded-full font-medium flex items-center justify-center gap-2 hover:opacity-90 transition-all focus:ring-2 focus:ring-accent focus:outline-none"
                 >
                   {isAdding ? (
                     <span className="animate-pulse">Adding...</span>

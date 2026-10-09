@@ -1,17 +1,41 @@
+import { motion } from "framer-motion";
 import { useState } from "react";
 import authService from "../services/authService";
 import api from "../services/api";
 import { User, Package, Search, Clock, LogOut, ChevronRight } from "lucide-react";
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Dashboard() {
   const customer = authService.getCustomer();
+  const location = useLocation();
   const [trackingNum, setTrackingNum] = useState("");
   const [orderState, setOrderState] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const trackNum = location.state?.trackingNumber || localStorage.getItem("recentOrderTrackingNum");
+    if (trackNum && customer) {
+      setTrackingNum(trackNum);
+      const fetchOrder = async () => {
+        setLoading(true);
+        try {
+          const res = await api.get(`/orders/${customer.email}/${trackNum}`);
+          if (res.data && res.data.data) {
+            setOrderState(res.data.data);
+          }
+        } catch (err) {
+          console.error("Failed to auto-fetch order:", err);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchOrder();
+    }
+  }, [customer?.email, location.state]);
 
   if (!customer) {
     return (
@@ -146,7 +170,7 @@ export default function Dashboard() {
                 <button 
                   type="submit" 
                   disabled={loading}
-                  className="bg-primary text-on-primary h-12 px-8 rounded-xl font-medium hover:bg-primary/90 transition-all disabled:opacity-70 flex items-center justify-center shrink-0 shadow-sm"
+                  className="bg-accent text-on-accent h-12 px-8 rounded-xl font-medium hover:opacity-90 transition-all disabled:opacity-70 flex items-center justify-center shrink-0 shadow-sm"
                 >
                   {loading ? (
                     <span className="animate-pulse">Searching...</span>

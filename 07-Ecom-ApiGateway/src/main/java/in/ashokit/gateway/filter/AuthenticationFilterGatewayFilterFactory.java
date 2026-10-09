@@ -45,6 +45,12 @@ public class AuthenticationFilterGatewayFilterFactory extends AbstractGatewayFil
                 
                 try {
                     jwtUtil.validateToken(authHeader);
+                    String email = jwtUtil.extractEmail(authHeader);
+                    exchange = exchange.mutate()
+                            .request(exchange.getRequest().mutate()
+                                    .header("X-User-Email", email)
+                                    .build())
+                            .build();
                 } catch (Exception e) {
                     exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                     return exchange.getResponse().setComplete();

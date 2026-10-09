@@ -1,6 +1,7 @@
+import { motion } from "framer-motion";
 import { useLocation, Link } from "react-router-dom";
 import { CheckCircle2, Package, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+
 
 export default function OrderConfirmation() {
   const location = useLocation();

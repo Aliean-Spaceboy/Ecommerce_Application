@@ -1,15 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function CartStatus() {
-  const [totalQuantity, setTotalQuantity] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
-
-  useEffect(() => {
-    const qty = localStorage.getItem("cartQty");
-    const price = localStorage.getItem("cartPrice");
-    setTotalQuantity(qty || 0);
-    setTotalPrice(price || 0);
-  }, []);
+  const [totalQuantity] = useState(() => localStorage.getItem("cartQty") || 0);
+  const [totalPrice] = useState(() => localStorage.getItem("cartPrice") || 0);
 
   return (
     <div className="cart-status">

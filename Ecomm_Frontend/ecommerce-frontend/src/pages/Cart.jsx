@@ -1,18 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Trash2, ShoppingBag, ArrowRight, Minus, Plus, ChevronLeft } from "lucide-react";
 import cartService from "../services/cartService";
 
 import { ImageFallback } from "../components/ui/ImageFallback";
 
 export default function Cart() {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => cartService.getCartItems());
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setCartItems(cartService.getCartItems());
-  }, []);
 
   const refreshCart = () => {
     setCartItems(cartService.getCartItems());
@@ -69,7 +65,7 @@ export default function Cart() {
             </p>
             <Link 
               to="/products" 
-              className="bg-primary text-on-primary h-12 px-8 rounded-full font-medium flex items-center justify-center gap-2 hover:bg-primary/90 transition-all shadow-md"
+              className="bg-accent text-on-accent h-12 px-8 rounded-full font-medium flex items-center justify-center gap-2 hover:opacity-90 transition-all shadow-md"
             >
               Explore Collection <ArrowRight className="h-4 w-4" />
             </Link>
@@ -202,7 +198,7 @@ export default function Cart() {
                 
                 <button
                   onClick={() => navigate("/checkout")}
-                  className="w-full bg-primary text-on-primary h-14 rounded-full font-semibold flex items-center justify-center hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                  className="w-full bg-accent text-on-accent h-14 rounded-full font-semibold flex items-center justify-center hover:opacity-90 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                 >
                   Proceed to Checkout
                 </button>

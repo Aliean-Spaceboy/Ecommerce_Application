@@ -21,6 +21,11 @@ public class JwtUtil {
         }
     }
 
+    public String extractEmail(final String token) {
+        io.jsonwebtoken.Claims claims = Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token).getBody();
+        return claims.getSubject();
+    }
+
     private Key getSignKey() {
         byte[] keyBytes = io.jsonwebtoken.io.Decoders.BASE64.decode(secret);
         return Keys.hmacShaKeyFor(keyBytes);

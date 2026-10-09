@@ -186,7 +186,8 @@ public class CustomerServiceImpl implements CustomerService {
 			customerRepo.save(customerEntity);
 
 			// 3. Create the reset link
-			String resetLink = "http://localhost:8081/reset-password-form?token=" + token + "&email=" + email;
+			String appUrl = System.getenv("APP_URL") != null ? System.getenv("APP_URL") : "http://localhost:8081";
+			String resetLink = appUrl + "/reset-password-form?token=" + token + "&email=" + email;
 
 			// 4. Create the email body with the reset link
 			String subject = "Password Reset Request";

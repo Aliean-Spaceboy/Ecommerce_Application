@@ -1,0 +1,13 @@
+in\Ashokit\repo\CategoryRepo.class
+in\Ashokit\ProductApiApplication.class
+in\Ashokit\mapper\ProductMapper.class
+in\Ashokit\service\ProductServiceImpl.class
+in\Ashokit\controller\ProductController.class
+in\Ashokit\dto\CatogoryDto.class
+in\Ashokit\mapper\CategoryMapper.class
+in\Ashokit\dto\ProductDto.class
+in\Ashokit\entity\CategoryEntity.class
+in\Ashokit\service\ProductService.class
+in\Ashokit\repo\ProductRepo.class
+in\Ashokit\Response\ApiResponse.class
+in\Ashokit\entity\Product_Entity.class

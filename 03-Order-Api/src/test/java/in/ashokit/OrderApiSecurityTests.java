@@ -61,7 +61,7 @@ public class OrderApiSecurityTests {
         in.ashokit.response.PurchaseOrderResponse ordresp = mock(in.ashokit.response.PurchaseOrderResponse.class);
         when(orderService.createOrder(request)).thenReturn(ordresp);
 
-        ResponseEntity<ApiResponse<in.ashokit.response.PurchaseOrderResponse>> response = orderRestController.creteOrder(request);
+        ResponseEntity<ApiResponse<in.ashokit.response.PurchaseOrderResponse>> response = orderRestController.creteOrder(null, request);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(200, response.getBody().getStatus());
     }
@@ -71,7 +71,7 @@ public class OrderApiSecurityTests {
         in.ashokit.request.PurcheseOrderRequest request = new in.ashokit.request.PurcheseOrderRequest();
         when(orderService.createOrder(request)).thenReturn(null);
 
-        ResponseEntity<ApiResponse<in.ashokit.response.PurchaseOrderResponse>> response = orderRestController.creteOrder(request);
+        ResponseEntity<ApiResponse<in.ashokit.response.PurchaseOrderResponse>> response = orderRestController.creteOrder(null, request);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
         assertEquals(500, response.getBody().getStatus());
     }

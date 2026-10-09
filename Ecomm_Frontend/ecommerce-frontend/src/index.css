@@ -3,25 +3,25 @@
 @tailwind utilities;
 
 :root {
-  /* Colors */
-  --color-primary: #1C1917;
+  /* Colors - Neo-Brutalist Design System */
+  --color-primary: #000000; /* Strong black for primary structure */
   --color-on-primary: #FFFFFF;
-  --color-secondary: #44403C;
-  --color-on-secondary: #FFFFFF;
-  --color-accent: #A16207;
+  --color-secondary: #FFD500; /* Yellow accent */
+  --color-on-secondary: #000000;
+  --color-accent: #9333EA; /* Vibrant Purple */
   --color-on-accent: #FFFFFF;
-  --color-background: #FAFAF9;
-  --color-foreground: #0C0A09;
+  --color-background: #F4F4F0; /* Warm off-white background */
+  --color-foreground: #000000; /* Strong text */
   --color-card: #FFFFFF;
-  --color-card-foreground: #0C0A09;
-  --color-muted: #E8ECF0;
-  --color-muted-foreground: #475569;
-  --color-border: #D6D3D1;
-  --color-destructive: #DC2626;
+  --color-card-foreground: #000000;
+  --color-muted: #E5E5E5;
+  --color-muted-foreground: #555555;
+  --color-border: #000000;
+  --color-destructive: #FF3B30;
   --color-on-destructive: #FFFFFF;
-  --color-ring: #1C1917;
+  --color-ring: #000000; /* Focus ring matches primary */
 
-  /* Spacing */
+  /* Spacing - Generous Whitespace */
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 16px;
@@ -29,16 +29,20 @@
   --space-xl: 32px;
   --space-2xl: 48px;
   --space-3xl: 64px;
+  --space-4xl: 96px;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-  --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
-  --shadow-xl: 0 20px 25px rgba(0,0,0,0.15);
+  /* Shadows - Hard, non-blurred Neo-Brutalist elevation */
+  --shadow-sm: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-md: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-lg: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-xl: 12px 12px 0px 0px rgba(0, 0, 0, 1);
+  
+  /* Borders */
+  --border-width: 3px;
 
-  /* Typography */
-  --font-heading: 'Cormorant', serif;
-  --font-body: 'Montserrat', sans-serif;
+  /* Typography - Clean, modern, legible */
+  --font-heading: 'Outfit', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
 }
 
 /* Reset */
@@ -82,18 +86,27 @@ a:hover {
   align-items: center;
   justify-content: center;
   padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
+  border-radius: 0px;
+  font-weight: 700;
   font-family: var(--font-body);
-  transition: all 200ms ease;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
   cursor: pointer;
-  border: none;
+  border: var(--border-width) solid var(--color-border);
   text-align: center;
+  box-shadow: var(--shadow-sm);
+  text-transform: uppercase;
 }
 
 .btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.btn:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px 0px rgba(0,0,0,1);
 }
 
 .btn-primary {
@@ -102,18 +115,18 @@ a:hover {
 }
 
 .btn-primary:hover:not(:disabled) {
-  opacity: 0.9;
-  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  transform: translate(-2px, -2px);
 }
 
 .btn-secondary {
-  background: transparent;
-  color: var(--color-primary);
-  border: 2px solid var(--color-primary);
+  background: var(--color-secondary);
+  color: var(--color-on-secondary);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background: var(--color-muted);
+  box-shadow: var(--shadow-md);
+  transform: translate(-2px, -2px);
 }
 
 .btn-danger {
@@ -136,12 +149,13 @@ label {
 
 .input {
   padding: 12px 16px;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 0px;
   font-size: 16px;
   font-family: var(--font-body);
-  transition: border-color 200ms ease;
   background: white;
+  box-shadow: var(--shadow-sm);
+  color: var(--color-foreground);
 }
 
 .input:focus {
@@ -168,16 +182,16 @@ label {
 .card {
   background: var(--color-card);
   color: var(--color-card-foreground);
-  border-radius: 12px;
+  border-radius: 0px;
   padding: var(--space-lg);
-  box-shadow: var(--shadow-sm);
-  transition: all 200ms ease;
-  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  border: var(--border-width) solid var(--color-border);
 }
 
 .card-interactive:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  transform: translate(-4px, -4px);
 }
 
 /* Product Grid */

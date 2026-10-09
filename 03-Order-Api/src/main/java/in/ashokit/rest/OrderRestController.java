@@ -18,6 +18,7 @@ import in.ashokit.response.ApiResponse;
 import in.ashokit.response.PurchaseOrderResponse;
 import in.ashokit.service.OrderService;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 @RestController
 public class OrderRestController {
@@ -25,8 +26,17 @@ public class OrderRestController {
 	private OrderService orderService;
 
 	@PostMapping("/order")
-	public ResponseEntity<ApiResponse<PurchaseOrderResponse>> creteOrder(@RequestBody PurcheseOrderRequest request) {
+	public ResponseEntity<ApiResponse<PurchaseOrderResponse>> creteOrder(
+			@RequestHeader(value = "X-User-Email", required = false) String userEmail,
+			@RequestBody PurcheseOrderRequest request) {
 		ApiResponse<PurchaseOrderResponse> response = new ApiResponse<>();
+
+		// Enforce server-side identity if provided by gateway
+		if (userEmail != null && !userEmail.isEmpty()) {
+			if (request.getCustomerDto() != null) {
+				request.getCustomerDto().setCustEmail(userEmail);
+			}
+		}
 
 		PurchaseOrderResponse ordresp = orderService.createOrder(request);
 

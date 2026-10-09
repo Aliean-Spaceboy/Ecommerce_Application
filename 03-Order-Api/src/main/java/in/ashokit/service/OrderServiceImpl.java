@@ -83,7 +83,7 @@ public class OrderServiceImpl implements OrderService {
 		newOrder.setRazorPayOrderId(paymentOrder.get("id"));
 		newOrder.setOrderStatus(paymentOrder.get("status"));
 
-		newOrder.setTotalQuentity(orderDto.getTotalPrice());
+		newOrder.setTotalPrice(orderDto.getTotalPrice());
 		newOrder.setTotalQuentity(orderDto.getTotalQuentity());
 		newOrder.setEmail(c.getEmail());
 
@@ -95,6 +95,7 @@ public class OrderServiceImpl implements OrderService {
 		for (OrderItemDto itemDto : orderitemDto) {
 			OrderItem item = new OrderItem();
 			BeanUtils.copyProperties(itemDto, item);
+			item.setOrderid(null); // Force a new ID to prevent StaleObjectStateException from productId collision
 			item.setOrder(newOrder);
 			orderItemsRepo.save(item);
 		}
